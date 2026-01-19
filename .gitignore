@@ -1,0 +1,43 @@
+# Lightning AI / system files
+.lightning_studio/
+.lightningignore
+.vscode-server/
+.cursor-server/
+.windsurf-server/
+.nvm/
+.condarc
+.ssh/
+
+.cursor-server
+.idea/
+.vscode-server
+.vscode/
+.wget-hsts
+.windsurf-server
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+.env/
+.envrc/
+
+# Data + checkpoints
+data/
+checkpoints/
+notebook/checkpoints/
+
+# Models / weights
+*.ckpt
+
+# Notebook outputs
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
