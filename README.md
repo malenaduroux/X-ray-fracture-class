@@ -70,3 +70,47 @@ During training, the following are generated:
 ```bash
 git clone https://github.com/malenaduroux/X-ray-fracture-class.git
 cd X-ray-fracture-classification
+
+### 🐳 Option A: Run Using Docker
+TO BE ADDED
+1. Build the Docker image
+
+```bash
+docker build -t fracture-prediction .
+````
+
+2. Run the container in interactive mode (remove it after using)
+
+```bash
+docker run -it --rm -p 8080:8080 fracture-prediction
+```
+
+
+### 💾 Option B: Run locally using uv
+
+1. Install uv if not installed yet
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+2. Create and sync virtual environment
+```bash
+uv sync
+```
+
+3. Activate it
+```bash
+source .venv/bin/activate
+```
+
+4. Start the FastAPI app
+```bash
+uvicorn predict:app --host 0.0.0.0 --port 8080
+```
+The app is now available on http://localhost:8080/predict like with the Docker method.
+
+You can then upload this text image: https://github.com/malenaduroux/X-ray-fracture-class/blob/main/test_image_fractured.jpg to see the service working.
+
+## Cloud Deployment
+
+TO BE ADDED
