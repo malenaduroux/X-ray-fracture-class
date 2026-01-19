@@ -42,7 +42,6 @@ The final classifier layer was replaced with:
 - Output layer (single neuron)
 
 ### Training Details
-
 - Loss: **BCEWithLogitsLoss**
 - Optimizer: **Adam**
 - Metrics: **Accuracy, Loss**
@@ -69,5 +68,5 @@ During training, the following are generated:
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/malenaduroux/X-ray-fracture-classification
+git clone https://github.com/malenaduroux/X-ray-fracture-class.git
 cd X-ray-fracture-classification
