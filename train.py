@@ -316,6 +316,33 @@ def plot_training_curves(history):
     print("Loss and accuracy curves saved as training_curves.png")
 
 
+# ===========================
+# ONNX Exporting
+# ===========================
+
+def export_to_onnx(model, onnx_path="fracture_classifier.onnx", input_size=224):
+    model.eval()
+
+    dummy_input = torch.randn(1, 3, input_size, input_size).to(device)
+
+    torch.onnx.export(
+        model,
+        dummy_input,
+        onnx_path,
+        export_params=True,
+        opset_version=17,
+        do_constant_folding=True,
+        input_names=["input"],
+        output_names=["logits"],
+        dynamic_axes={
+            "input": {0: "batch_size"},
+            "logits": {0: "batch_size"}
+        }
+    )
+
+    print(f"Model exported to {onnx_path}")
+
+
 # ============================
 # Hyperparameters
 # ===========================
@@ -343,11 +370,19 @@ history, best_checkpoint = train_and_evaluate(
     train_loader=train_loader,
     val_loader=val_loader,
     criterion=nn.BCEWithLogitsLoss(),
-    num_epochs=num_epochs,
+    num_epochs=5,
     device=device,
     patience=patience
 )
 
 plot_training_curves(history)
-shutil.copy(best_checkpoint, "model.pth")
+shutil.copy(best_checkpoint, "model-test.pth")
 print("Best model saved as model.pth")
+
+# ============================
+# Load best model & export to ONNX
+# ============================
+model.load_state_dict(torch.load("model.pth", map_location=device))
+model.to(device)
+
+export_to_onnx(model, onnx_path="fracture_classifier-test.onnx", input_size=224)
