@@ -70,6 +70,8 @@ During training, the following are generated:
 ```bash
 git clone https://github.com/malenaduroux/X-ray-fracture-class.git
 cd X-ray-fracture-classification
+```
+
 
 ### 🐳 Option A: Run Using Docker
 TO BE ADDED
@@ -77,7 +79,7 @@ TO BE ADDED
 
 ```bash
 docker build -t fracture-prediction .
-````
+```
 
 2. Run the container in interactive mode (remove it after using)
 
