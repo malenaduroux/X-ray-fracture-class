@@ -4,6 +4,10 @@ import onnxruntime as ort
 from fastapi import FastAPI
 from pydantic import BaseModel
 from keras_image_helper import create_preprocessor
+import logging
+logging.basicConfig(level=logging.INFO)
+
+
 
 app = FastAPI(title="fracture-classifier")
 
