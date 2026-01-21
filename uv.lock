@@ -1751,34 +1751,39 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
-    { name = "jupyterlab" },
     { name = "keras-image-helper" },
     { name = "matplotlib" },
     { name = "numpy" },
-    { name = "onnx" },
     { name = "onnxruntime" },
-    { name = "onnxscript" },
     { name = "requests" },
+    { name = "uvicorn" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "jupyterlab" },
+    { name = "onnx" },
+    { name = "onnxscript" },
     { name = "torch" },
     { name = "torchvision" },
-    { name = "uvicorn" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.128.0" },
-    { name = "jupyterlab", specifier = ">=4.5.2" },
+    { name = "jupyterlab", marker = "extra == 'dev'", specifier = ">=4.5.2" },
     { name = "keras-image-helper", specifier = ">=0.0.2" },
     { name = "matplotlib", specifier = ">=3.10.8" },
     { name = "numpy", specifier = ">=2.4.1" },
-    { name = "onnx", specifier = ">=1.20.1" },
+    { name = "onnx", marker = "extra == 'dev'", specifier = ">=1.20.1" },
     { name = "onnxruntime", specifier = ">=1.23.2" },
-    { name = "onnxscript", specifier = ">=0.5.7" },
+    { name = "onnxscript", marker = "extra == 'dev'", specifier = ">=0.5.7" },
     { name = "requests", specifier = ">=2.32.5" },
-    { name = "torch", specifier = ">=2.9.1" },
-    { name = "torchvision", specifier = ">=0.24.1" },
+    { name = "torch", marker = "extra == 'dev'", specifier = ">=2.9.1" },
+    { name = "torchvision", marker = "extra == 'dev'", specifier = ">=0.24.1" },
     { name = "uvicorn", specifier = ">=0.40.0" },
 ]
+provides-extras = ["dev"]
 
 [[package]]
 name = "tinycss2"

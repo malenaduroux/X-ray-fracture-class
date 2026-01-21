@@ -74,7 +74,6 @@ cd X-ray-fracture-classification
 
 
 ### 🐳 Option A: Run Using Docker
-TO BE ADDED
 1. Build the Docker image
 
 ```bash
@@ -118,7 +117,7 @@ source .venv/bin/activate
 ```bash
 uv run uvicorn app:app --host 0.0.0.0 --port 8080 --reload
 ```
-The app is now available on http://localhost:8080/app like with the Docker method.
+The app is now available on http://localhost:8080/app like with the Docker method. On http://localhost:8080/docs you can use the FastAPI interface to input a URL online or check the health.
 
 You can then upload this text image: https://raw.githubusercontent.com/malenaduroux/X-ray-fracture-class/main/test_image_fractured.jpg to see the service working. Or run the test file:
 
@@ -128,4 +127,33 @@ uv run python test.py
 
 ## Cloud Deployment
 
-TO BE ADDED
+The service includes deployment on a Kubernetes cluster using the following manifests:
+- $$k8s/deployment.yaml$$
+- $$k8s/service.yaml$$
+
+### How to run locally:
+You need to have $$kubectl$$ for this. Install it if you don't have it, following the instructions on the [https://kubernetes.io/docs/tasks/tools/](Kubernetes Docs).
+
+Run the following commands
+```bash
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+```
+
+Port-forward to access the app:
+```bash
+kubectl port-forward service/fracture-classifier 30080:8080
+```
+
+You can now test the service using the $$k8s/test_k8s.py$$ file:
+```bash
+uv run python k8s/test_k8s.py
+```
+
+, look at the FastAPI interface here: http://localhost:30080/docs, or run the following command in your terminal:
+```bash
+curl -X POST http://localhost:30080/predict \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://raw.githubusercontent.com/malenaduroux/X-ray-fracture-class/main/test_image_fractured.jpg"}'
+  ```
+
