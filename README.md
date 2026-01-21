@@ -87,6 +87,10 @@ docker build -t fracture-prediction .
 docker run -it --rm -p 8080:8080 fracture-prediction
 ```
 
+Note: if you want to run the train.py file, you will have to install dev dependencies too: 
+```bash
+uv sync --locked --extras dev
+```
 
 ### 💾 Option B: Run locally using uv
 
@@ -100,6 +104,11 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 ```
 
+Note: if you want to run the train.py file, you will have to install dev dependencies too: 
+```bash
+uv sync --locked --extras dev
+```
+
 3. Activate it
 ```bash
 source .venv/bin/activate
@@ -107,7 +116,7 @@ source .venv/bin/activate
 
 4. Start the FastAPI app
 ```bash
-uvicorn app:app --host 0.0.0.0 --port 8080
+uv run uvicorn app:app --host 0.0.0.0 --port 8080 --reload
 ```
 The app is now available on http://localhost:8080/app like with the Docker method.
 

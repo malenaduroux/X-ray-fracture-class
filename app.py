@@ -47,7 +47,7 @@ class PredictRequest(BaseModel):
 
 class PredictResponse(BaseModel):
     fracture_probability: float
-
+    message: str
 
 # -----------------------------
 # Prediction
@@ -77,9 +77,17 @@ def health():
 def predict_endpoint(request: PredictRequest):
     fracture_prob = predict(str(request.url))
 
-    return PredictResponse(
-        fracture_probability=fracture_prob
+    message = (
+        "This X-ray is likely to depict a fractured arm"
+        if fracture_prob > 0.5
+        else "This X-ray is unlikely to depict a fractured arm"
     )
+
+    return PredictResponse(
+        fracture_probability=fracture_prob,
+        message=message
+    )
+
 
 
 if __name__ == "__main__":

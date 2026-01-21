@@ -8,7 +8,6 @@ payload = {
 
 response = requests.post(url, json=payload)
 
-print("STATUS:", response.status_code)
 print("TEXT:", response.text)
 
 try:
