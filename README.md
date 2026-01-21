@@ -131,7 +131,7 @@ The service includes deployment on a Kubernetes cluster using the following mani
 - `k8s/deployment.yaml`
 - `k8s/service.yaml`
 
-### How to run locally:
+### How to run locally:
 You need to have `kubectl` for this. Install it if you don't have it, following the instructions on the [https://kubernetes.io/docs/tasks/tools/](Kubernetes Docs).
 
 Run the following commands
