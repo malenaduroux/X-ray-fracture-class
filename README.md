@@ -107,11 +107,15 @@ source .venv/bin/activate
 
 4. Start the FastAPI app
 ```bash
-uvicorn predict:app --host 0.0.0.0 --port 8080
+uvicorn app:app --host 0.0.0.0 --port 8080
 ```
-The app is now available on http://localhost:8080/predict like with the Docker method.
+The app is now available on http://localhost:8080/app like with the Docker method.
 
-You can then upload this text image: https://github.com/malenaduroux/X-ray-fracture-class/blob/main/test_image_fractured.jpg to see the service working.
+You can then upload this text image: https://raw.githubusercontent.com/malenaduroux/X-ray-fracture-class/main/test_image_fractured.jpg to see the service working. Or run the test file:
+
+```bash
+uv run python test.py
+```
 
 ## Cloud Deployment
 
