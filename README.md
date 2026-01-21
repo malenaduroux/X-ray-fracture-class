@@ -128,11 +128,11 @@ uv run python test.py
 ## Cloud Deployment
 
 The service includes deployment on a Kubernetes cluster using the following manifests:
-- $$k8s/deployment.yaml$$
-- $$k8s/service.yaml$$
+- `k8s/deployment.yaml`
+- `k8s/service.yaml`
 
 ### How to run locally:
-You need to have $$kubectl$$ for this. Install it if you don't have it, following the instructions on the [https://kubernetes.io/docs/tasks/tools/](Kubernetes Docs).
+You need to have `kubectl` for this. Install it if you don't have it, following the instructions on the [https://kubernetes.io/docs/tasks/tools/](Kubernetes Docs).
 
 Run the following commands
 ```bash
@@ -145,7 +145,7 @@ Port-forward to access the app:
 kubectl port-forward service/fracture-classifier 30080:8080
 ```
 
-You can now test the service using the $$k8s/test_k8s.py$$ file:
+You can now test the service using the `k8s/test_k8s.py` file:
 ```bash
 uv run python k8s/test_k8s.py
 ```
