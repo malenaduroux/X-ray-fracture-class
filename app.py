@@ -47,7 +47,6 @@ class PredictRequest(BaseModel):
 
 class PredictResponse(BaseModel):
     fracture_probability: float
-    not_fractured_probability: float
 
 
 # -----------------------------
@@ -59,9 +58,9 @@ def predict(url: str):
     logit = result[0][0][0]
     prob = 1 / (1 + np.exp(-logit))  # sigmoid
 
-    # Label Inversion 
     fracture_prob = 1 - prob
     return fracture_prob
+
 
 
 @app.get("/")
@@ -76,12 +75,10 @@ def health():
 
 @app.post("/predict", response_model=PredictResponse)
 def predict_endpoint(request: PredictRequest):
-    predictions, top_class, top_prob = predict(str(request.url))
-    
+    fracture_prob = predict(str(request.url))
+
     return PredictResponse(
-        predictions=predictions,
-        top_class=top_class,
-        top_probability=top_prob
+        fracture_probability=fracture_prob
     )
 
 

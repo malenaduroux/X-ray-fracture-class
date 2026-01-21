@@ -1,19 +1,17 @@
 import requests
 
-url = 'http://localhost:8080/predict'
+url = "http://localhost:8080/predict"
 
-request = {
-    "url": "https://github.com/malenaduroux/X-ray-fracture-class/blob/main/test_image_fractured.jpg"
+payload = {
+    "url": "https://raw.githubusercontent.com/malenaduroux/X-ray-fracture-class/main/test_image_fractured.jpg"
 }
 
-response = requests.post(url, json=request)
-result = response.json()
+response = requests.post(url, json=payload)
 
 print("STATUS:", response.status_code)
 print("TEXT:", response.text)
 
 try:
-    result = response.json()
-    print(result)
+    print(response.json())
 except Exception as e:
     print("JSON ERROR:", e)
