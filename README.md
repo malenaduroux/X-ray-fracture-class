@@ -131,7 +131,7 @@ The service includes deployment on a Kubernetes cluster using the following mani
 - `k8s/deployment.yaml`
 - `k8s/service.yaml`
 
-You can see a screen recording of this working at `k8s/kubernetes-deployment.mov` [https://github.com/malenaduroux/X-ray-fracture-class/blob/main/k8s/kubernetes-deployment.mov]((link)).
+You can see a screen recording of this working at `k8s/kubernetes-deployment.mov` [https://github.com/malenaduroux/X-ray-fracture-class/blob/main/k8s/kubernetes-deployment.mov]((here)).
 
 ### How to run locally:
 You need to have `kubectl` for this. Install it if you don't have it, following the instructions on the [https://kubernetes.io/docs/tasks/tools/](Kubernetes Docs).
