@@ -2,7 +2,7 @@ import os
 import numpy as np
 import onnxruntime as ort
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 from keras_image_helper import create_preprocessor
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -32,7 +32,7 @@ preprocessor = create_preprocessor(
 # Load ONNX model
 # -----------------------------
 session = ort.InferenceSession(
-    "fracture_classifier-test.onnx",
+    "fracture_classifier.onnx",
     providers=["CPUExecutionProvider"]
 )
 
@@ -43,9 +43,7 @@ output_name = session.get_outputs()[0].name
 # Request / Response models
 # -----------------------------
 class PredictRequest(BaseModel):
-    url: str = None
-    image_path: str = None
-
+    url: HttpUrl
 
 class PredictResponse(BaseModel):
     fracture_probability: float
@@ -55,24 +53,13 @@ class PredictResponse(BaseModel):
 # -----------------------------
 # Prediction
 # -----------------------------
-def predict_from_url(url: str):
+def predict(url: str):
     X = preprocessor.from_url(url)
     result = session.run([output_name], {input_name: X})
     logit = result[0][0][0]
     prob = 1 / (1 + np.exp(-logit))  # sigmoid
 
-    # 🔁 Inversion applied here
-    fracture_prob = 1 - prob
-    return fracture_prob
-
-
-def predict_from_path(path: str):
-    X = preprocessor.from_path(path)
-    result = session.run([output_name], {input_name: X})
-    logit = result[0][0][0]
-    prob = 1 / (1 + np.exp(-logit))
-
-    # 🔁 Inversion applied here
+    # Label Inversion 
     fracture_prob = 1 - prob
     return fracture_prob
 
@@ -89,17 +76,12 @@ def health():
 
 @app.post("/predict", response_model=PredictResponse)
 def predict_endpoint(request: PredictRequest):
-
-    if request.image_path:
-        fracture_prob = predict_from_path(request.image_path)
-    elif request.url:
-        fracture_prob = predict_from_url(request.url)
-    else:
-        return {"error": "Please provide a url or image_path"}
-
+    predictions, top_class, top_prob = predict(str(request.url))
+    
     return PredictResponse(
-        fracture_probability=float(fracture_prob),
-        not_fractured_probability=float(1 - fracture_prob)
+        predictions=predictions,
+        top_class=top_class,
+        top_probability=top_prob
     )
 
 
