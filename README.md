@@ -65,6 +65,8 @@ During training, the following are generated:
 
 ## 🚀 How to Use This Repository
 
+Note: It is highly recommended to run any re-training of the model on a GPU. This can be done by opening the notebook in Google Colab, or with some other remote GPU access like AWS Sagemaker. To train the original model, lightning.ai was used.
+
 ### 1. Clone the repo
 
 ```bash
